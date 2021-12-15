@@ -93,22 +93,22 @@ def test(model, device, test_loader, criterion, epoch, writer):
             correct += predicted.eq(labels.view_as(predicted)).sum().item()
             # 错误分类的图片
             # misclassified_images(predicted, writer, labels, images, outputs, epoch)
-            precision, recall, f1 = metrics(outputs, labels)
-            total_precision += precision
-            total_recall += recall
-            total_f1 += f1
+            # precision, recall, f1 = metrics(outputs, labels)
+            # total_precision += precision
+            # total_recall += recall
+            # total_f1 += f1
         # 平均损失
         test_loss = total_loss / len(test_loader.dataset)
-        avg_percision = total_precision / len(test_loader.dataset)
-        avg_recall = total_recall / len(test_loader.dataset)
-        avg_f1 = total_f1 / len(test_loader.dataset)
+        # avg_percision = total_precision / len(test_loader.dataset)
+        # avg_recall = total_recall / len(test_loader.dataset)
+        # avg_f1 = total_f1 / len(test_loader.dataset)
         # 计算正确率
         accuracy = 100 * correct / len(test_loader.dataset)
         # 将test的结果写入write
         writer.add_scalar("Test Loss", test_loss, epoch)
         writer.add_scalar("accuracy", accuracy, epoch)
-        writer.add_scalar("percision", avg_percision, epoch)
-        writer.add_scalar("recall", avg_recall, epoch)
-        writer.add_scalar("f1", avg_f1, epoch)
+        # writer.add_scalar("percision", avg_percision, epoch)
+        # writer.add_scalar("recall", avg_recall, epoch)
+        # writer.add_scalar("f1", avg_f1, epoch)
         writer.flush()
         return test_loss, accuracy

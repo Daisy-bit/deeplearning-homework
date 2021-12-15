@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
     writer = tb_writer()
     dataloaders = dataloader()
-    epochs=30
+    epochs=100
     train(model, device, dataloaders, criterion, optimizer, epochs, writer)
  
