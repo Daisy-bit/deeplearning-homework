@@ -1,6 +1,7 @@
 import torch
 from torch import nn
-from resnet import resnet50
+from torch.nn.modules import conv
+from resnetnoca import resnet50
 from torchsummary import summary
 
 
@@ -20,7 +21,7 @@ class AdaptiveConcatPool2d(nn.Module):
 # 迁移学习：获取预训练模型，并替换池化层和全连接层
 def get_model():
     # 获取欲训练模型 restnet50
-    model = resnet50(pretrained=True) 
+    model = resnet50(pretrained=False) 
     # # 冻结模型参数
     # for param in model.parameters():
     #     param.requires_grad = False 

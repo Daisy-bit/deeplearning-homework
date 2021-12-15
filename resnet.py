@@ -8,18 +8,16 @@ class SELayer(nn.Module):
     def __init__(self, channel, reduction=16):
         super(SELayer, self).__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.fc = nn.Sequential(
-            nn.Linear(channel, channel // reduction, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel // reduction, channel, bias=False),
+        self.conv_du = nn.Sequential(
+            nn.Conv2d(channel,channel//reduction,1,stride=1,padding=0,dilation=1,bias=True),
+            nn.ReLU(),#inplace=True
+            nn.Conv2d(channel//reduction,channel,1,stride=1,padding=0,dilation=1,bias=True),
             nn.Sigmoid()
         )
 
     def forward(self, x):
-        b, c, _, _ = x.size()
-        y = self.avg_pool(x).view(b, c)
-        y = self.fc(y).view(b, c, 1, 1)
-        y = y.expand_as(x)
+        y=self.avg_pool(x)
+        y=self.conv_du(y)
         return x * y
 
 def conv3x3(in_planes: int, out_planes: int, stride: int = 1):
@@ -145,7 +143,7 @@ class ResNet(nn.Module):
 def resnet50(block = Bottleneck, layers = [3, 4, 6, 3], pretrained = bool):
     model = ResNet(block, layers)
     if pretrained:
-        model.load_state_dict(torch.load('F:/Program-project/deeplearning-homework/resnet50-19c8e357.pth'), strict=False)
+        model.load_state_dict(torch.load('/home/ccut/deeplearning-homework/resnet50-19c8e357.pth'), strict=False)
     return model
 
 

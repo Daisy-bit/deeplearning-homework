@@ -26,7 +26,7 @@ def train(model, device, dataloaders, criterion, optimizer, epochs, writer):
             best_loss = test_loss # 保存最小损失
             # 保存模型
             timestr = time.strftime("%Y%m%d_%H%M%S")
-            torch.save(model.state_dict(), 'model' + timestr + '.pth')
+            torch.save(model.state_dict(), 'model.pth')
         # 输出结果
         print("{0:>15} | {1:>15} | {2:>15} | {3:>15} | {4:>15} | {5:>15}".format(epoch, train_loss, val_loss, val_acc, test_loss, test_acc))
         writer.flush()
@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
     writer = tb_writer()
     dataloaders = dataloader()
-    epochs=30
+    epochs=100
     train(model, device, dataloaders, criterion, optimizer, epochs, writer)
  

@@ -4,13 +4,13 @@ from torch.utils.data import DataLoader, dataset
 class Createdataloaders:
     def __init__(self):
         # 数据集所在目录路径
-        data_dir = 'E:\\Program-Project\\deeplearning-homework\\data'
+        data_dir = '/home/ccut/文档/data/data'
         # train路径
-        train_dir = data_dir + '\\train'
+        train_dir = data_dir + '/train'
         # val路径
-        val_dir = data_dir + '\\val'
+        val_dir = data_dir + '/val'
         # test路径
-        test_dir = data_dir + '\\test'
+        test_dir = data_dir + '/test'
 
         # 分为为train, val, test定义transform
         image_transforms = {
@@ -51,7 +51,7 @@ class Createdataloaders:
         }
 
         # 定义BATCH_SIZE
-        BATCH_SIZE = 128 # 每批读取128张图片
+        BATCH_SIZE = 16 # 每批读取128张图片
         # DataLoader : 创建iterator, 按批遍历读取数据
         self.dataloaders = {
             'train' : DataLoader(self.datasets['train'], batch_size=BATCH_SIZE, shuffle=True), # 训练集  shuffle：将图片进行打乱
